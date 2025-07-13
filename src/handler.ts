@@ -1,12 +1,11 @@
 const serverless = require("serverless-http");
-const { neon, neonConfig } = require("@neondatabase/serverless");
+const { neon } = require("@neondatabase/serverless");
 const express = require("express");
 import type { Request, Response, NextFunction } from "express";
 
 const app = express();
 
 async function dbClient() {
-  neonConfig.fetchConnectionCache = true;
   return neon(process.env.DATABASE_URL ?? "");
 }
 
