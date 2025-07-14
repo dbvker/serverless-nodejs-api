@@ -9,11 +9,25 @@ provider:
   runtime: nodejs22.x
   environment:
     DEBUG: ${env:DEBUG, 0}
-    DATABASE_URL: ${env:DATABASE_URL, "fallback value"}
+    DATABASE_URL_SSM_PARAM: ${env:DATABASE_URL_SSM_PARAM}
+    STAGE: ${env:STAGE, "prod"}
+  iam:
+    role:
+      name: serverless-ssm-role
+      statements:
+        - Effect: "Allow"
+          Resource: "*"
+          Action:
+            - "ssm:GetParameter"
+            - "ssm:GetParameters"
+            - "ssm:GetParametersByPath"
+            - "ssm:GetParameterHistory"
+            - "ssm:DescribeParameters"
+
 
 functions:
   api:
-    handler: src/handler.handler
+    handler: src/index.handler
     events:
       - httpApi: "*"
 
@@ -23,7 +37,6 @@ custom:
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
       - AWS_SESSION_TOKEN
-      # - DATABASE_URL
 
 plugins:
   - serverless-offline

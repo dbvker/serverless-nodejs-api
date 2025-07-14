@@ -3,21 +3,26 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "nodemon --exec \"serverless offline start --stage dev\" --watch src/*",
+    "dev": "nodemon --exec \"serverless offline start --stage dev\" --watch src/",
     "deploy": "serverless deploy --stage prod --region us-east-2",
     "remove": "serverless remove --stage prod --region us-east-2"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",
+    "aws-sdk": "^2.1692.0",
     "drizzle-orm": "^0.44.2",
     "express": "^4.19.2",
     "serverless-http": "^3.2.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
+    "dotenv": "^17.2.0",
     "drizzle-kit": "^0.31.4",
     "nodemon": "^3.1.10",
     "serverless-offline": "^14.4.0",
     "typescript": "^5.8.3"
+  },
+  "overrides": {
+    "esbuild": "^0.25.6"
   }
 }
